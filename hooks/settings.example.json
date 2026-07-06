@@ -1,0 +1,17 @@
+{
+  "model": "claude-opus-4-8",
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "xhigh",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/goat-fable/hooks/stop-verify.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}
