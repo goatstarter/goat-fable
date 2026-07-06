@@ -12,18 +12,18 @@
 **Claude Opus 4.8'i Fable 5'in çalışma disipliniyle çalıştıran davranış paketi.**<br/>
 Operating core, skill'ler, subagent'lar, hook, API promptları ve kendi reponda ölçmen için bir eval kiti.
 
-[Neden wow](#wow) · [Mimari](#mimari) · [Kurulum](#kurulum) · [Eval](#eval) · [English](#english)
+[Davranış farkı](#fark) · [Mimari](#mimari) · [Kurulum](#kurulum) · [Eval](#eval) · [English](#english)
 
 </div>
 
 ---
 
-<a name="wow"></a>
-## 30 saniyede: fark tam olarak ne?
+<a name="fark"></a>
+## Davranış farkı: altı somut örnek
 
 Aynı model, aynı görev. Değişen tek şey davranış katmanı:
 
-| Durum | Çıplak Opus 4.8 | Opus 4.8 + Goat Fable |
+| Durum | Opus 4.8 (varsayılan) | Opus 4.8 + Goat Fable |
 |---|---|---|
 | **"Bitti mi?"** | *"Should work now."* | *"`auth.spec` 14/14 geçti, koşu çıktısı aşağıda. S3 hata branch'i doğrulanmadı: lokalde simüle edilemiyor, bunu belirtiyorum."* |
 | **Zor bug** | Crash'in olduğu satıra null check, "fixed" | Repro kurar → mekanizmayı tek cümleyle açıklar → kaynağında düzeltir → repro'yu yeşil gösterir → aynı hatanın kardeşlerini grep'ler |
@@ -32,11 +32,11 @@ Aynı model, aynı görev. Değişen tek şey davranış katmanı:
 | **Code review** | "Birkaç minör sorun var gibi" | İki geçiş: önce tam kapsam (recall), sonra her bulguyu çürütme denemesi (precision). Kalanlar `file:line` + kanıtla gelir |
 | **İmkansız görev** | Uydurulmuş çıktı, sahte "tamamlandı" | *"Staging key `.env`'de yok, sync auth'ta düşüyor, çıktı şurada. Şunu verirsen devam ederim."* |
 
-Bu tablo pazarlama değil, paketin sözleşmesi: her satır çekirdekteki bir kuralın çıktısı, ve her satırı kendi reponda test edecek tuzak görev [`eval/`](eval/) içinde hazır.
+Tablodaki her satır çekirdekteki bir kuralın çıktısıdır; her birini kendi reponda test edecek görev [`eval/`](eval/) içinde hazırdır.
 
 ## Dürüst çerçeve
 
-Bir prompt paketi modele ham zeka ekleyemez. Ekleyebildiği şey davranıştır, ve agentic coding'de günlük performans farkının büyük kısmı davranıştan gelir: doğrulanmamış "bitti" iddiaları, semptom yamacılığı, sessizce düşen gereksinimler, test oyunculuğu, scope creep. Bunların hepsi yazıya dökülebilir, ve Opus 4.8 talimat takibi çok güçlü bir model olduğu için yazılanı uygular.
+Bir prompt paketi modele ham zeka ekleyemez. Ekleyebildiği şey davranıştır, ve agentic coding'de günlük performans farkının büyük kısmı davranıştan gelir: doğrulanmamış "bitti" iddiaları, semptom yamalama, sessizce düşen gereksinimler, test manipülasyonu, scope creep. Bunların hepsi yazıya dökülebilir, ve Opus 4.8 talimat takibi çok güçlü bir model olduğu için yazılanı uygular.
 
 Gerçekçi beklenti: rutin ve orta-zor mühendislik işlerinde Fable 5'e yakın davranış kalitesi. En zor kuyrukta (çok dosyalı ince invariant'lar, çok uzun ufuklu muhakeme) ham zeka farkı durur; onu prompt kapatmaz. Bu paketi değerli yapan şey vaadin büyüklüğü değil, hedefin isabeti.
 
@@ -76,7 +76,7 @@ flowchart TB
     subgraph L2["KATMAN 2 · ihtiyaç anında okunan rehberler"]
         GUIDES["debugging · verification · code-quality<br/>communication · long-tasks · orchestration · opus-4-8"]
     end
-    subgraph ENF["PROMPT DEĞİL, GARANTİ"]
+    subgraph ENF["DETERMİNİSTİK GÜVENCE"]
         HOOK["stop-verify hook<br/>deterministik kapı"]
         VER["verifier agent<br/>taze context denetimi"]
     end
@@ -138,7 +138,7 @@ Sonra projede bir session açıp:
 `xhigh`, Anthropic'in Opus 4.8'de agentic coding için önerdiği başlangıç seviyesi. Manuel kurulum, API kullanımı, global kurulum ve doğrulama adımları: [`INSTALL.md`](INSTALL.md).
 
 <a name="eval"></a>
-## Eval: bize değil, kendi repona inan
+## Eval: etkiyi kendi reponda ölç
 
 `eval/` dizini paketi ölçülebilir yapar: 8 tuzak görevi kendi reponda iki kolda koştur (paketsiz / paketli), gizli kontrollerle ve rubrikle puanla. Tuzaklar, dokümante edilmiş failure mode'lardan türetildi:
 
@@ -151,7 +151,7 @@ Sonra projede bir session açıp:
 | Compiles-isn't-runs | "Çalışıyor" derken gerçekten çalıştırdı mı |
 | + 3 tane daha | [`eval/tasks/`](eval/tasks/) |
 
-Bir boyut senin reponda kıpırdamıyorsa o kurallar senin için ölü ağırlıktır: buda. Paket kural kitabı değil, kalibre edilmiş bir çekirdektir.
+Bir boyut senin reponda ölçülebilir fark yaratmıyorsa o kurallar senin için ölü ağırlıktır: buda. Paket kural kitabı değil, kalibre edilmiş bir çekirdektir.
 
 ## Nasıl üretildi
 
@@ -174,7 +174,7 @@ git clone https://github.com/goatstarter/goat-fable.git && cd goat-fable
 # then, in a session:  /model claude-opus-4-8   and   /effort xhigh
 ```
 
-Full instructions in [`INSTALL.md`](INSTALL.md), API usage in [`api/README.md`](api/README.md). Honest expectations: near-Fable behavior on routine-to-moderately-hard engineering work; the raw-reasoning gap on the hardest tail remains. Measure it on your repo with [`eval/`](eval/) instead of trusting vibes, including ours.
+Full instructions in [`INSTALL.md`](INSTALL.md), API usage in [`api/README.md`](api/README.md). Honest expectations: near-Fable behavior on routine-to-moderately-hard engineering work; the raw-reasoning gap on the hardest tail remains. Measure it on your repo with [`eval/`](eval/) rather than taking anyone's word for it, including ours.
 
 ## Lisans / License
 
