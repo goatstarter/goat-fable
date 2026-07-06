@@ -1,0 +1,43 @@
+<svg width="1200" height="280" viewBox="0 0 1200 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Goat Fable">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0e14"/>
+      <stop offset="1" stop-color="#111a29"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#4ade80"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="280" rx="18" fill="url(#bg)"/>
+  <rect x="0.5" y="0.5" width="1199" height="279" rx="18" fill="none" stroke="#22304a" stroke-width="1"/>
+
+  <!-- subtle grid -->
+  <g stroke="#1c2740" stroke-width="1" opacity="0.35">
+    <line x1="0" y1="70" x2="1200" y2="70"/>
+    <line x1="0" y1="140" x2="1200" y2="140"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+  </g>
+
+  <!-- wordmark -->
+  <text x="72" y="126" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="62" font-weight="700" fill="#e6edf3" letter-spacing="3">GOAT<tspan fill="url(#accent)"> FABLE</tspan></text>
+  <text x="75" y="168" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="19" fill="#8b98a9">Fable 5 disiplini, Opus 4.8 fiyatına · Fable 5 discipline for Opus 4.8</text>
+
+  <!-- stat strip -->
+  <text x="75" y="228" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="16" fill="#5b6b80">12 davranış · 7 rehber · 4 skill · 2 agent · 1 hook · 8 eval tuzağı</text>
+
+  <!-- terminal card -->
+  <g>
+    <rect x="820" y="52" width="316" height="176" rx="12" fill="#0d1420" stroke="#22304a" stroke-width="1"/>
+    <circle cx="844" cy="76" r="5" fill="#f87171"/>
+    <circle cx="862" cy="76" r="5" fill="#fbbf24"/>
+    <circle cx="880" cy="76" r="5" fill="#34d399"/>
+    <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="15">
+      <text x="844" y="112" fill="#4ade80">$ <tspan fill="#c9d4e0">/model claude-opus-4-8</tspan></text>
+      <text x="844" y="138" fill="#4ade80">$ <tspan fill="#c9d4e0">/effort xhigh</tspan></text>
+      <text x="844" y="164" fill="#4ade80">$ <tspan fill="#c9d4e0">./install.sh .</tspan></text>
+      <text x="844" y="198" fill="#5b6b80">→ <tspan fill="#22d3ee">davranış: Fable 5</tspan></text>
+    </g>
+  </g>
+</svg>
