@@ -22,7 +22,8 @@
 
   <!-- wordmark -->
   <text x="72" y="126" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="62" font-weight="700" fill="#e6edf3" letter-spacing="3">GOAT<tspan fill="url(#accent)"> FABLE</tspan></text>
-  <text x="75" y="168" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="19" fill="#8b98a9">Fable 5 disiplini, Opus 4.8 üzerinde · Fable 5 discipline for Opus 4.8</text>
+  <text x="75" y="164" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="19" fill="#8b98a9">Fable 5 disiplini, Opus 4.8 üzerinde</text>
+  <text x="75" y="192" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="17" fill="#5b6b80">Fable 5 discipline for Opus 4.8</text>
 
   <!-- stat strip -->
   <text x="75" y="228" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="16" fill="#5b6b80">12 davranış · 7 rehber · 4 skill · 2 agent · 1 hook · 8 eval tuzağı</text>
