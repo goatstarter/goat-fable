@@ -40,7 +40,7 @@ Bir prompt paketi modele ham zeka ekleyemez. Ekleyebildiği şey davranıştır,
 
 Gerçekçi beklenti: rutin ve orta-zor mühendislik işlerinde Fable 5'e yakın davranış kalitesi. En zor kuyrukta (çok dosyalı ince invariant'lar, çok uzun ufuklu muhakeme) ham zeka farkı durur; onu prompt kapatmaz. Bu paketi değerli yapan şey vaadin büyüklüğü değil, hedefin isabeti.
 
-Ekonomi tarafı basit: Fable 5 en iyi model, ama bugün itibarıyla sadece API'dan kullanılabiliyor ve Claude üyeliğine dahil değil. Üyelikle Claude Code kullananların elindeki en güçlü model Opus 4.8; bu paket o modele Fable disiplinini kazandırmak için var.
+Ekonomi tarafı basit: Fable 5 en iyi model, ama Temmuz 2026 itibarıyla üyelik planlarında değil; sadece API'dan ya da üyelik üstüne ek kullanım kredisiyle erişiliyor (Anthropic bunun geçici olduğunu söylüyor). Üyelikle Claude Code kullananların elindeki en güçlü model Opus 4.8; bu paket o modele Fable disiplinini kazandırmak için var.
 
 ## Hedef listesi tahmin değil: resmi gap haritası
 
