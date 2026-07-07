@@ -16,7 +16,7 @@ mkdir -p "$TARGET/.claude/goat-fable" "$TARGET/.claude/skills" "$TARGET/.claude/
 cp -R "$SRC/core" "$TARGET/.claude/goat-fable/"
 cp -R "$SRC/guides" "$TARGET/.claude/goat-fable/"
 cp -R "$SRC/hooks" "$TARGET/.claude/goat-fable/"
-chmod +x "$TARGET/.claude/goat-fable/hooks/stop-verify.sh"
+chmod +x "$TARGET/.claude/goat-fable/hooks/"*.sh
 
 # Skills and agents go where Claude Code discovers them.
 # (strip the glob's trailing slash: BSD cp treats "dir/" as "contents of dir")

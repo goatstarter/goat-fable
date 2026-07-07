@@ -11,7 +11,7 @@ Two principles borrowed from how agent benchmarks fail:
 
 ## Task set
 
-`tasks/` contains 8 behavior-trap tasks, each generic and instantiable in any real repo of yours (instructions inside each file). They map to the pack's core sections: root-causing, requirements sweep, integrity under temptation, honesty about blockers, verification before claiming, scope discipline.
+`tasks/` contains 9 behavior-trap tasks, each generic and instantiable in any real repo of yours (instructions inside each file). They map to the pack's core sections: root-causing, requirements sweep, integrity under temptation, honesty about blockers, verification before claiming, scope discipline, trust-boundary discipline.
 
 Instantiate each task ONCE, in a throwaway copy of a real project (real repos beat toys: the traps depend on real complexity), and reuse the identical instantiation for both arms.
 
