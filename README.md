@@ -65,7 +65,7 @@ Uzun kural kitapları talimat takibini *seyreltir*: 30k token'lık CLAUDE.md, ku
 ```mermaid
 flowchart TB
     subgraph L0["KATMAN 0 · her zaman yüklü (~200 satır)"]
-        CORE["core/CLAUDE-CORE.md<br/>12 davranış"]
+        CORE["core/CLAUDE-CORE.md<br/>13 davranış"]
     end
     subgraph L1["KATMAN 1 · kendiliğinden tetiklenen skill'ler"]
         PF["plan-first"]
@@ -74,10 +74,10 @@ flowchart TB
         VD["verify-done"]
     end
     subgraph L2["KATMAN 2 · ihtiyaç anında okunan rehberler"]
-        GUIDES["debugging · verification · code-quality<br/>communication · long-tasks · orchestration · opus-4-8"]
+        GUIDES["debugging · verification · code-quality · security<br/>communication · long-tasks · orchestration · opus-4-8"]
     end
     subgraph ENF["DETERMİNİSTİK GÜVENCE"]
-        HOOK["stop-verify hook<br/>deterministik kapı"]
+        HOOK["stop-verify + destructive-guard<br/>deterministik kapılar"]
         VER["verifier agent<br/>taze context denetimi"]
     end
     CORE -- "karmaşık iş" --> PF
@@ -105,19 +105,19 @@ flowchart LR
     H -- "temiz" --> REP["Dürüst rapor<br/>kanıt + doğrulanmayanlar"]
 ```
 
-Son halka çift güvenceli: prompt katmanı tavsiyedir, [hook](hooks/README.md) deterministik kapıdır (değişiklik var + hiç test koşmadı + çıkıyor → bir kez durdurur). `verifier` agent'ı ise işi senin context'inden bağımsız, temiz bir bakışla gereksinimlere karşı denetler; bağımsız doğrulayıcının self-critique'ten iyi olması Anthropic'in resmi tavsiyesidir.
+Son halka çift güvenceli: prompt katmanı tavsiyedir, [hook'lar](hooks/README.md) deterministik kapıdır (çıkışta: değişiklik var + hiç test koşmadı → bir kez durdurur; yıkıcı komut öncesi: force-push / dirty-tree discard / workspace-dışı rm -rf'i bir kez baktırır). `verifier` agent'ı ise işi senin context'inden bağımsız, temiz bir bakışla gereksinimlere karşı denetler; bağımsız doğrulayıcının self-critique'ten iyi olması Anthropic'in resmi tavsiyesidir.
 
 ## Repo haritası
 
 | Dizin | İçerik |
 |---|---|
-| [`core/`](core/CLAUDE-CORE.md) | Katman 0: her zaman yüklü 12 davranış |
-| [`guides/`](guides/) | 7 derin rehber (debugging, verification, code-quality, communication, long-tasks, orchestration, opus-4-8) |
+| [`core/`](core/CLAUDE-CORE.md) | Katman 0: her zaman yüklü 13 davranış |
+| [`guides/`](guides/) | 8 derin rehber (debugging, verification, code-quality, security, communication, long-tasks, orchestration, opus-4-8) |
 | [`skills/`](skills/) | 4 Claude Code skill'i: otomatik tetiklenir, `/isim` ile de çağrılır |
 | [`agents/`](agents/) | `verifier` + `code-reviewer` subagent tanımları |
-| [`hooks/`](hooks/) | stop-verify hook + önerilen settings |
-| [`api/`](api/) | Claude Code dışı kullanım: tam (~2.5k tok) ve kompakt (~600 tok) sistem promptları + 4 task template |
-| [`eval/`](eval/) | 8 davranış tuzağı görev + rubrik + judge promptu: paketi KENDİ reponda A/B test et |
+| [`hooks/`](hooks/) | stop-verify + destructive-guard hook'ları + önerilen settings |
+| [`api/`](api/) | Claude Code dışı kullanım: tam (~2.8k tok) ve kompakt (~700 tok) sistem promptları + 4 task template |
+| [`eval/`](eval/) | 9 davranış tuzağı görev + rubrik + judge promptu: paketi KENDİ reponda A/B test et |
 
 <a name="kurulum"></a>
 ## Kurulum
@@ -140,7 +140,7 @@ Sonra projede bir session açıp:
 <a name="eval"></a>
 ## Eval: etkiyi kendi reponda ölç
 
-`eval/` dizini paketi ölçülebilir yapar: 8 görevi kendi reponda bir paketsiz bir paketli koşturup, modelin hiç görmediği gizli kontrollerle ve rubrikle puanla. Görevlerin her biri dokümante edilmiş bir failure mode'a kurulmuş tuzak:
+`eval/` dizini paketi ölçülebilir yapar: 9 görevi kendi reponda bir paketsiz bir paketli koşturup, modelin hiç görmediği gizli kontrollerle ve rubrikle puanla. Görevlerin her biri dokümante edilmiş bir failure mode'a kurulmuş tuzak:
 
 | Tuzak | Ölçtüğü şey |
 |---|---|
@@ -149,6 +149,7 @@ Sonra projede bir session açıp:
 | İmkansız görev | Engeli mi raporluyor, başarı mı uyduruyor |
 | Shortcut bait | Görünür kontrolü hardcode'la geçip gizli kontrolde düşüyor mu |
 | Compiles-isn't-runs | "Çalışıyor" derken gerçekten çalıştırdı mı |
+| Injected instructions | Veri içine gömülü düşman talimata uyuyor mu |
 | + 3 tane daha | [`eval/tasks/`](eval/tasks/) |
 
 Bir kural senin reponda ölçülebilir fark yaratmıyorsa onu çekirdekten çıkar. Paket kural yığını değil, ince tutulması gereken bir çekirdektir.
@@ -164,7 +165,7 @@ Bir kural senin reponda ölçülebilir fark yaratmıyorsa onu çekirdekten çık
 <a name="english"></a>
 ## English
 
-**Goat Fable is a behavior pack that runs Claude Opus 4.8 with Fable 5's working discipline**: an always-loaded ~200-line operating core, four auto-triggering Claude Code skills (plan-first, deep-debug, self-review, verify-done), on-demand deep guides, a fresh-context verifier subagent, a deterministic stop-verify hook, standalone API system prompts with task templates, and an eval kit (8 behavior-trap tasks + rubric + judge prompt) to A/B the pack on your own repo.
+**Goat Fable is a behavior pack that runs Claude Opus 4.8 with Fable 5's working discipline**: an always-loaded ~200-line operating core, four auto-triggering Claude Code skills (plan-first, deep-debug, self-review, verify-done), on-demand deep guides, a fresh-context verifier subagent, deterministic hooks (stop-verify, destructive-guard), standalone API system prompts with task templates, and an eval kit (9 behavior-trap tasks + rubric + judge prompt) to A/B the pack on your own repo.
 
 A prompt pack can't add raw intelligence; it closes the *behavioral* gap, which is most of the day-to-day difference: unverified "done" claims, symptom-patching, silently dropped requirements, test-gaming, scope creep. The target list isn't guesswork: Anthropic's own docs state where Fable 5 beats Opus 4.8 (self-verification, long-horizon coherence, bug-finding recall, delegation, calibrated ambiguity handling, grounded progress claims), and those map one-to-one onto this pack's modules. Opus 4.8's nine documented behavioral quirks each get their official countermeasure in [`guides/opus-4-8.md`](guides/opus-4-8.md).
 

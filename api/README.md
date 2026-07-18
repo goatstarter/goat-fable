@@ -4,8 +4,8 @@ Use this layer when running Opus 4.8 outside Claude Code: your own products, age
 
 ## Files
 
-- `system-prompt-full.md`: the complete behavior pack as one self-contained system prompt (~2.5k tokens). Default choice for agentic coding backends.
-- `system-prompt-compact.md`: ~600-token distillation for token-sensitive or high-volume paths. Keeps the highest failure-cost rules, drops the how-to depth.
+- `system-prompt-full.md`: the complete behavior pack as one self-contained system prompt (~2.8k tokens). Default choice for agentic coding backends.
+- `system-prompt-compact.md`: ~700-token distillation for token-sensitive or high-volume paths. Keeps the highest failure-cost rules, drops the how-to depth.
 - `task-templates/`: fill-in wrappers for the four common task shapes (bugfix, feature, refactor, review). They go in the *user* message and pair with either system prompt.
 
 ## Minimal request shape

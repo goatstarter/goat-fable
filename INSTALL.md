@@ -29,7 +29,7 @@ Then, in a session inside the project:
 2. Add one line to your project `CLAUDE.md`: `@.claude/goat-fable/core/CLAUDE-CORE.md`
 3. `skills/plan-first`, `skills/deep-debug`, `skills/self-review`, `skills/verify-done` → `.claude/skills/` (each is a directory containing a `SKILL.md`).
 4. `agents/verifier.md`, `agents/code-reviewer.md` → `.claude/agents/`.
-5. Optional but recommended: wire the stop-verify hook (`hooks/README.md`).
+5. Optional but recommended: wire the hooks — stop-verify and destructive-guard (`hooks/README.md`).
 
 ### Global install (all projects)
 
@@ -53,4 +53,4 @@ Start a session in the project and check three things:
 
 ## Uninstall
 
-Remove `.claude/goat-fable/`, the four skill directories, the two agent files, the import line in `CLAUDE.md`, and the hook entry in `.claude/settings.json` if you added it.
+Remove `.claude/goat-fable/`, the four skill directories, the two agent files, the import line in `CLAUDE.md`, and the hook entries in `.claude/settings.json` if you added them.

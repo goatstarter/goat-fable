@@ -26,7 +26,7 @@
   <text x="75" y="192" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="17" fill="#5b6b80">Fable 5 discipline for Opus 4.8</text>
 
   <!-- stat strip -->
-  <text x="75" y="228" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="16" fill="#5b6b80">12 davranış · 7 rehber · 4 skill · 2 agent · 1 hook · 8 eval tuzağı</text>
+  <text x="75" y="228" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="16" fill="#5b6b80">13 davranış · 8 rehber · 4 skill · 2 agent · 2 hook · 9 eval tuzağı</text>
 
   <!-- terminal card -->
   <g>
